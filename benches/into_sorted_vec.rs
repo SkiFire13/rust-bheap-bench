@@ -1,5 +1,5 @@
 use criterion::{black_box, criterion_group, criterion_main, BatchSize, BenchmarkId, Criterion};
-use rust_bheap_bench::*;
+use bheap_bench::*;
 
 #[path = "./utils.rs"]
 mod utils;
