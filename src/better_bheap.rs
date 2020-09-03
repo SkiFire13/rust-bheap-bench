@@ -46,9 +46,13 @@ impl<T: Ord> BinaryHeap<T> {
             self.data.swap(0, end);
             unsafe {
                 self.sift_down_range_odd(0, end + (end & 1) - 1);
-            }
-            if end & 1 == 0 {
-                self.sift_up(0, end - 1);
+                if end > 1 && self.data.get_unchecked(end - 1) > self.data.get_unchecked((end - 2) / 2) {
+                    // `[T]::swap_unchecked` when?
+                    std::ptr::swap(
+                        self.data.get_unchecked_mut(end - 1),
+                        self.data.get_unchecked_mut((end - 2) / 2)
+                    )
+                }
             }
         }
         self.into_vec()
